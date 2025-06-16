@@ -14,6 +14,7 @@ services:
       - "7432:5432"
     volumes:
       - pgdata:/var/lib/postgresql/data
+      - ./exports:/tmp
     command: >
       postgres -c shared_preload_libraries=pg_cron
                -c cron.database_name=example_db
