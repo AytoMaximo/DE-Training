@@ -6,7 +6,7 @@ from pymongo import MongoClient
 def archive_inactive_users():
     # Настройка подключения к MongoDB
     client = MongoClient()
-    db = client['user_events']
+    db = client['my_database']
     events = db.user_events
     archived = db.archived_users
 
