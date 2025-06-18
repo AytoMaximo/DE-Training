@@ -1,5 +1,16 @@
 {
     "date": "2025-06-18",
-    "archived_users_count": 0,
-    "archived_user_ids": []
+    "archived_users_count": 10,
+    "archived_user_ids": [
+        123,
+        125,
+        131,
+        132,
+        129,
+        128,
+        127,
+        130,
+        126,
+        124
+    ]
 }
