@@ -16,6 +16,7 @@ def archive_inactive_users():
 
     # Агрегация: для каждого пользователя находим дату регистрации и время последнего события
     pipeline = [
+        {"$sort": {"event_time": 1}},  # Sort by event_time ascending
         {"$group": {
             "_id": "$user_id",
             "last_event": {"$max": "$event_time"},
