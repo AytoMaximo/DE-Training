@@ -17,9 +17,9 @@ CREATE TABLE user_events_agg (
     points_spent_state   AggregateFunction(sum, UInt32),
     actions_count_state  AggregateFunction(count, UInt8)
 ) ENGINE = AggregatingMergeTree()
-ORDER BY (event_date, event_type)
-TTL event_date + INTERVAL 180 DAY
-SETTINGS index_granularity = 1024;
+  ORDER BY (event_date, event_type)
+  TTL event_date + INTERVAL 180 DAY
+  SETTINGS index_granularity = 1024;
 
 -- 3. Материализованное представление
 CREATE MATERIALIZED VIEW user_events_mv

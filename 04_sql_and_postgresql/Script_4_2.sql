@@ -108,6 +108,7 @@ SELECT cron.schedule(
 -- );
 
 -- SELECT cron.unschedule('test_immediate');
+-- SELECT cron.unschedule('daily_export_users_audit');
 
 -- Список всех задач
 SELECT
