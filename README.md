@@ -56,12 +56,11 @@
 
 ## 🗂 Примеры директорий в репозитории
 
-* `01_intro_and_git/`
-* `02_sql_and_postgresql/`
-* `03_kafka_airflow/`
-* `04_spark_hive/`
-* `05_viz_grafana_superset/`
-* `06_final_project/`
+* `04_sql_and_postgresql/`
+* `05_kafka_airflow/`
+* `06_spark_hive/`
+* `07_viz_grafana_superset/`
+* `08_final_project/`
 
 ## 🧭 О курсе
 
