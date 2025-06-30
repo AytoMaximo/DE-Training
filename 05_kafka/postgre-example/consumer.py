@@ -7,7 +7,8 @@ consumer = KafkaConsumer(
     bootstrap_servers="localhost:9092",  # адрес и порт сервера Kafka
     auto_offset_reset='earliest',  # начинать чтение с самого раннего доступного сообщения, если нет смещений
     enable_auto_commit=True,  # автоматически сохранять смещения после обработки сообщений
-    value_deserializer=lambda x: json.loads(x.decode('utf-8'))  # функция для преобразования байтовых сообщений в объекты Python (десериализация JSON)
+    value_deserializer=lambda x: json.loads(x.decode('utf-8')),  # функция для преобразования байтовых сообщений в объекты Python (десериализация JSON),
+    group_id="user-logins-consumer"
 )
 
 conn = psycopg2.connect(
