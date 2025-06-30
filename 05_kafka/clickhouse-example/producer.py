@@ -13,25 +13,24 @@ conn = psycopg2.connect(
 )
 cursor = conn.cursor()
 
+cursor.execute(""
 #                                            преобразует время в формат UNIX timestamp (число секунд от 1970-01-01)
-cursor.execute("SELECT username, event_type, extract(epoch FROM event_time) FROM user_logins")
+               "SELECT username, event_type, extract(epoch FROM event_time), id "
+               "FROM user_logins "
+               "WHERE sent_to_kafka = FALSE")
 rows = cursor.fetchall()
 
 for row in rows:
     data = {
         "user": row[0],
         "event": row[1],
-        "timestamp": float(row[2])  # преобразуем Decimal → float
+        "timestamp": float(row[2])  # преобразуем Decimal (особенность драйвера psycopg2) → float (нужно для JSON сереализатора)
     }
     producer.send("user_events", value=data)
     print("Sent:", data)
+
+    # Отмечаем запись как отправленную
+    cursor.execute("UPDATE user_logins SET sent_to_kafka = TRUE WHERE id = %s", (row[3],))
+
+    conn.commit()
     time.sleep(0.5)
-
-# В PostgreSQL функция extract(epoch FROM ...) возвращает количество секунд
-# с плавающей точкой (тип double precision) с 1970-01-01.
-
-# Однако драйвер psycopg2 может возвращать это значение как Decimal для точности при работе с числами с плавающей точкой.
-# Преобразование из Decimal в float нужно, чтобы сериализовать данные в JSON
-# (стандартный сериализатор не поддерживает Decimal) и для совместимости с другими системами, ожидающими числовой тип float.
-
-# Таким образом, timestamp может быть Decimal из-за особенностей работы драйвера с типами данных PostgreSQL.
