@@ -6,8 +6,6 @@
 
 Механизм защищён от повторной отправки данных с помощью логического поля `sent_to_kafka` в PostgreSQL и параметра `group_id` в Kafka Consumer.
 
----
-
 ## Компоненты пайплайна
 
 ### 1. **PostgreSQL (producer.py)**
@@ -28,24 +26,17 @@
 - Каждое сообщение записывается в таблицу `user_logins` в ClickHouse
 - Таблица создаётся автоматически, если не существует
 
----
-
 ## Как запустить
 
 ### 1. Запустите Kafka и Zookeeper (например, через `docker-compose`):
 
 ```bash
-bash
-CopyEdit
 docker-compose up -d
-
 ```
 
 ### 2. Убедитесь, что PostgreSQL запущен, и в нём есть таблица `user_logins`:
 
 ```sql
-sql
-CopyEdit
 CREATE TABLE user_logins (
     id SERIAL PRIMARY KEY,
     username TEXT,
@@ -53,25 +44,22 @@ CREATE TABLE user_logins (
     event_time TIMESTAMP,
     sent_to_kafka BOOLEAN DEFAULT FALSE
 );
-
+```
+Если таблица уже существует, но без колонки-флага, то ее можно добавить с помощью команды: 
+```sql
+ALTER TABLE user_logins ADD COLUMN sent_to_kafka BOOLEAN DEFAULT FALSE;
 ```
 
 ### 3. Установите зависимости:
 
 ```bash
-bash
-CopyEdit
 pip install kafka-python psycopg2 clickhouse-connect
-
 ```
 
 ### 4. Запустите **consumer** (потребитель Kafka):
 
 ```bash
-bash
-CopyEdit
 python consumer.py
-
 ```
 
 > Он подключится к Kafka, создаст таблицу в ClickHouse (если её нет) и начнёт ждать сообщений.
@@ -80,16 +68,11 @@ python consumer.py
 ### 5. Запустите **producer** (отправитель событий из PostgreSQL в Kafka):
 
 ```bash
-bash
-CopyEdit
 python producer.py
-
 ```
 
 > Скрипт отправит только новые записи (sent_to_kafka = FALSE), обновит их статус, и сообщения будут автоматически переданы в ClickHouse.
 >
-
----
 
 ## Примечания
 
