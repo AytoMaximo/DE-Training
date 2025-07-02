@@ -39,6 +39,16 @@ ORDER BY event_time
 for message in consumer:
     data = message.value
     print("Received:", data)
-    client.command(
-        f"INSERT INTO user_logins (username, event_type, event_time) VALUES ('{data['user']}', '{data['event']}', toDateTime({data['timestamp']}))"
+
+    # client.command(
+    #    f"INSERT INTO user_logins (username, event_type, event_time) VALUES ('{data['user']}', '{data['event']}', toDateTime({data['timestamp']}))"
+    # )
+
+    client.insert(
+        'user_logins',
+        [{
+            'username': data['user'],
+            'event_type': data['event'],
+            'event_time': data['timestamp']
+        }]
     )
