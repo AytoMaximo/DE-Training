@@ -57,7 +57,7 @@
 ## 🗂 Примеры директорий в репозитории
 
 * `04_sql_and_postgresql/`
-* `05_kafka_airflow/`
+* `05_kafka` (+ `05_spark` как пример коннектора)
 * `06_spark_hive/`
 * `07_viz_grafana_superset/`
 * `08_final_project/`
