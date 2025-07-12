@@ -1,0 +1,6 @@
+2025-07-12 15:43:04 [INFO] watcher: New file was detected: W:\Courses\Stepik-DE-Training\DE-Training\06_s3\task_6_4/incoming\test_20250712154304.csv
+2025-07-12 15:43:04 [INFO] processor: File processed and saved: W:\Courses\Stepik-DE-Training\DE-Training\06_s3\task_6_4\temp\filtered_test_20250712154304.csv
+2025-07-12 15:43:04 [INFO] processor: Processed file was uploaded: filtered_test_20250712154304.csv
+2025-07-12 15:43:04 [INFO] archiver: The source file was archived: W:\Courses\Stepik-DE-Training\DE-Training\06_s3\task_6_4\archive\test_20250712154304.csv
+2025-07-12 15:43:04 [INFO] processor: Source file was archived: W:\Courses\Stepik-DE-Training\DE-Training\06_s3\task_6_4/incoming\test_20250712154304.csv
+2025-07-12 15:43:04 [INFO] processor: Log file loaded to storage
