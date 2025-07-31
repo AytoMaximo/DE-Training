@@ -1,0 +1,2 @@
+SET hive.strict.checks.cartesian.product=false;
+SET hive.mapred.mode=nonstrict;
