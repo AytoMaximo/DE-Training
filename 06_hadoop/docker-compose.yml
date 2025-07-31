@@ -10,7 +10,8 @@ services:
     env_file:
       - ./hadoop-hive.env
     ports:
-      - "50070:50070"
+      - "30070:50070"   # Web‑UI NameNode
+      - "8020:8020"     # RPC
 
   datanode1:
     image: bde2020/hadoop-datanode:2.0.0-hadoop2.7.4-java8
@@ -21,7 +22,9 @@ services:
     environment:
       SERVICE_PRECONDITION: "namenode:50070"
     ports:
-      - "50075:50075"
+      - "30075:50075"   # Web‑UI DataNode
+      - "50010:50010"   # Data‑transfer
+      - "50020:50020"   # IPC
 
   datanode2:
     image: bde2020/hadoop-datanode:2.0.0-hadoop2.7.4-java8
@@ -32,7 +35,9 @@ services:
     environment:
       SERVICE_PRECONDITION: "namenode:50070"
     ports:
-      - "50076:50075" # Порт изменен для уникальности
+      - "30076:50075"
+      - "50011:50010"
+      - "50021:50020"
 
   datanode3:
     image: bde2020/hadoop-datanode:2.0.0-hadoop2.7.4-java8
@@ -43,7 +48,9 @@ services:
     environment:
       SERVICE_PRECONDITION: "namenode:50070"
     ports:
-      - "50077:50075" # Порт изменен для уникальности
+      - "30077:50075"
+      - "50012:50010"
+      - "50022:50020"
 
   hive-server:
     image: bde2020/hive:2.3.2-postgresql-metastore
@@ -54,6 +61,8 @@ services:
       SERVICE_PRECONDITION: "hive-metastore:9083"
     ports:
       - "10000:10000"
+    volumes:
+      - ./hiverc:/home/hive/.hiverc
 
   hive-metastore:
     image: bde2020/hive:2.3.2-postgresql-metastore
