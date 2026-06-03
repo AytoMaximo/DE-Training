@@ -1,3 +1,12 @@
 /04_sql_and_postgresql/Script_4_6_Import.py
 06_hadoop/big_file.csv
 06_s3/.env
+.idea/
+.venv/
+__pycache__/
+*.py[cod]
+.ipynb_checkpoints/
+.env
+08_airflow/logs/
+08_airflow/config/
+08_airflow/plugins/
